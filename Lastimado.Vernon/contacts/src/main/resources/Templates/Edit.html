@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Contact</title>
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f5f5f5;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input {
+            margin-bottom: 15px;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+        .centered-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .centered-link:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+<h2>Edit Contact</h2>
+
+<form action="/update-contact" method="post">
+  <input type="hidden" name="resourceName" th:value="${contact.resourceName}" />
+
+  <label for="givenName">First Name:</label>
+  <input type="text" id="givenName" name="givenName" th:value="${contact.names != null and #lists.size(contact.names) > 0 ? contact.names[0].givenName : ''}" />
+
+  <label for="familyName">Last Name:</label>
+  <input type="text" id="familyName" name="familyName" th:value="${contact.names != null and #lists.size(contact.names) > 0 ? contact.names[0].familyName : ''}" />
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" th:value="${contact.emailAddresses != null and #lists.size(contact.emailAddresses) > 0 ? contact.emailAddresses[0].value : ''}" />
+
+  <label for="phone">Phone:</label>
+  <input type="text" id="phone" name="phone" th:value="${contact.phoneNumbers != null and #lists.size(contact.phoneNumbers) > 0 ? contact.phoneNumbers[0].value : ''}" />
+
+  <button type="submit">Update Contact</button>
+</form>
+
+<a href="/contacts" class="centered-link">Back to Contacts</a>
+
+</body>
+</html>
